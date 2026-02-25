@@ -1,10 +1,17 @@
-import HeaderComponent from "./components/header_component";
-
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import { ROUTES } from "./constants/Routes.jsx";
+import FavouritesPage from "./pages/FavouritesPage.jsx";
+import DetailsPage from "./pages/DetailsPage.jsx";
 function App() {
   return (
-    <div className="flex flex-row bg-cyan-700 min-h-lvh w-full">
-      <HeaderComponent />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path={ROUTES.home} Component={HomePage} />
+        <Route path={ROUTES.favourites} Component={FavouritesPage} />
+        <Route path={ROUTES.details} Component={DetailsPage} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
