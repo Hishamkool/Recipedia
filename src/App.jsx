@@ -7,9 +7,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path={ROUTES.home} Component={HomePage} />
-        <Route path={ROUTES.favourites} Component={FavouritesPage} />
-        <Route path={ROUTES.details} Component={DetailsPage} />
+        <Route exact path={ROUTES.home} element={<HomePage />} />
+        <Route path={ROUTES.favourites} element={<FavouritesPage />} />
+        <Route path="/meal-details/:mealName" element={<DetailsPage />} />
       </Routes>
     </BrowserRouter>
   );
