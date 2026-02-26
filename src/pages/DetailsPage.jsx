@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SvgFavOutline from "../assets/svg/favourite-outline.svg?react";
 import SvgFavFilled from "../assets/svg/favourite-filled.svg?react";
@@ -6,48 +6,17 @@ import { fetchMealID } from "../services/mealServices";
 import { structureIngridients } from "../util/createIngredientsUtil";
 import { STORAGE_KEYS } from "../constants/localStorage.constants";
 import DefaultHeader from "../components/DefaultHeader";
+import { FavoriteContext } from "../context/FavouriteContext";
 
 function DetailsPage() {
   const { mealID } = useParams();
   const [mealDetails, setMealDetails] = useState([]);
   const [mealIngredients, setMealIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [favMeal, setFavMeal] = useState(() => {
-    const favouriteMeals = localStorage.getItem(STORAGE_KEYS.fav_meals);
-    return favouriteMeals ? JSON.parse(favouriteMeals) : [];
-  });
-  const [isFav, setIsFav] = useState(() => {
-    const requiredID = mealID;
-    return favMeal.some((meal) => meal.idMeal === requiredID);
-  });
 
-  const handleToogleFav = (e) => {
-    e.stopPropagation();
-    console.log("handle toogle clicked ");
-    setFavMeal((prevMeals) => {
-      let updatedMeals;
-      const requiredID = mealID;
-      const exists = favMeal.some((meal) => meal.idMeal === requiredID);
-      if (exists) {
-        // need to remove the item
-        updatedMeals = prevMeals.filter((item) => item.idMeal !== requiredID);
-        setIsFav(false);
-      } else {
-        const currentRecipe = mealDetails.find(
-          (meal) => meal.idMeal === requiredID,
-        );
-        updatedMeals = [...prevMeals, currentRecipe];
-        setIsFav(true);
-      }
-      console.log({ updatedMeals });
-      localStorage.setItem(
-        STORAGE_KEYS.fav_meals,
-        JSON.stringify(updatedMeals),
-      );
-      return updatedMeals;
-    });
-  };
-
+  const { handleToggleFavourite, favMeals, getFavCount, checkIsFavourite } =
+    useContext(FavoriteContext);
+  const isFav = checkIsFavourite(mealID);
   /* useEffects */
   useEffect(() => {
     const fetchSelectedMeal = async () => {
@@ -96,7 +65,7 @@ function DetailsPage() {
                     />
                     <button
                       onClick={(e) => {
-                        handleToogleFav(e);
+                        handleToggleFavourite(meal, e);
                       }}
                       className="bg-white rounded-full p-1.5 absolute top-2 right-2 active:animate-ping"
                     >

@@ -1,45 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SvgFavOutline from "../assets/svg/favourite-outline.svg?react";
 import SvgFavFilled from "../assets/svg/favourite-filled.svg?react";
-import { STORAGE_KEYS } from "../constants/localStorage.constants";
+import { FavoriteContext } from "../context/FavouriteContext";
 
 function MealCard({ recipe }) {
   const navigate = useNavigate();
-
-  const [favMeal, setFavMeal] = useState(() => {
-    const favouriteMeals = localStorage.getItem(STORAGE_KEYS.fav_meals);
-    return favouriteMeals ? JSON.parse(favouriteMeals) : [];
-  });
-  const [isFav, setIsFav] = useState(() => {
-    const requiredID = recipe.idMeal;
-    return favMeal.some((meal) => meal.idMeal === requiredID);
-  });
-
-  const handleToogleFav = (e) => {
-    e.stopPropagation();
-    console.log("handle toogle clicked ");
-    setFavMeal((prevMeals) => {
-      let updatedMeals;
-      const requiredID = recipe.idMeal;
-      const exists = favMeal.some((meal) => meal.idMeal === requiredID);
-      if (exists) {
-        // need to remove the item
-        updatedMeals = prevMeals.filter((item) => item.idMeal !== requiredID);
-        setIsFav(false);
-      } else {
-        updatedMeals = [...prevMeals, recipe];
-        setIsFav(true);
-      }
-      console.log({ updatedMeals });
-      localStorage.setItem(
-        STORAGE_KEYS.fav_meals,
-        JSON.stringify(updatedMeals),
-      );
-      return updatedMeals;
-    });
-  };
-
+  const { handleToggleFavourite, checkIsFavourite } =
+    useContext(FavoriteContext);
+  const isFav = checkIsFavourite(recipe.idMeal);
   return (
     <div
       className="bg-white flex flex-col rounded-2xl overflow-hidden shadow-xl relative max-w-87.5 place-self-center hover:shadow-2xl"
@@ -55,7 +24,7 @@ function MealCard({ recipe }) {
         />
         <button
           onClick={(e) => {
-            handleToogleFav(e);
+            handleToggleFavourite(recipe, e);
           }}
           className="bg-white rounded-full p-1.5 absolute top-2 right-2 active:animate-ping"
         >

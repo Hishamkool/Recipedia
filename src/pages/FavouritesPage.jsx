@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import DefaultHeader from "../components/DefaultHeader";
-import { STORAGE_KEYS } from "../constants/localStorage.constants";
 import MealCard from "../components/MealCard";
+import { FavoriteContext } from "../context/FavouriteContext";
 
 function FavouritesPage() {
-  const [favMeals, setFavMeals] = useState(() => {
-    const storedFavMeals = localStorage.getItem(STORAGE_KEYS.fav_meals);
-    return storedFavMeals ? JSON.parse(storedFavMeals) : [];
-  });
-
+  const { favMeals, getFavCount } = useContext(FavoriteContext);
+  const count = getFavCount();
   return (
     <>
       <DefaultHeader />
 
-      {!favMeals ? (
+      {!count ? (
         <div>No Favourite Meals, click head to add to favourites!</div>
       ) : (
         <div>
           <div className="p-2.5">
             <div className="text-3xl ">Favourites</div>
-            <div className="text-sm ">
-              Total Items : {favMeals && favMeals.length}
-            </div>
+            <div className="text-sm ">Total Items : {count}</div>
           </div>
 
           <div className="meal-card-grid mx-auto px-auto">
