@@ -23,6 +23,7 @@ function HeaderHome({ handleSearchItem }) {
             name="search-recipe"
             id="search-recipe"
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={() => handleSearchItem(serachValue)}
           ></input>
           <button
             className="absolute right-20 px-2.5 py-1"

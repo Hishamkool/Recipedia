@@ -17,11 +17,9 @@ function BodyComponent({ mealsData, mealsLoading }) {
             ) : (
               !mealsData && (
                 <>
-                  ( mealsData.length === 0 && (
                   <div className="col-span-full text-2xl flex justify-center items-center row-span-full">
                     No Meals Found
                   </div>
-                  ))
                 </>
               )
             )

@@ -12,8 +12,8 @@ function HomePage() {
     const fetchMeals = async () => {
       try {
         const response = await getAllMeals();
-        setMealsData(response.meals);
-        console.log(response.meals);
+        setMealsData(response);
+        console.log(response);
         setMealsLoading(false);
       } catch (error) {
         console.error("Error fetching meals", error);
@@ -30,8 +30,8 @@ function HomePage() {
     try {
       setMealsLoading(true);
       const response = await searchMeals(searchValue);
-      setMealsData(response.meals);
-      console.log(response.meals);
+      setMealsData(response);
+      console.log(response);
       setMealsLoading(false);
     } catch (error) {
       console.error("Errror fetching search querry", error);

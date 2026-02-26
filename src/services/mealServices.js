@@ -6,6 +6,10 @@ export const getAllMeals = async () => {
 };
 
 export const searchMeals = async (searchQuerry) => {
-  const response = await api.get(`${searchQuerry}`);
+  const response = await api.get("", {
+    params: {
+      s: searchQuerry,
+    },
+  });
   return response.data ? response.data.meals : [];
 };
