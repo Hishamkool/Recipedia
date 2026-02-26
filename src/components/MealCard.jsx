@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SvgFavOutline from "../assets/svg/favourite-outline.svg?react";
 import SvgFavFilled from "../assets/svg/favourite-filled.svg?react";
@@ -6,42 +6,39 @@ import { STORAGE_KEYS } from "../constants/localStorage.constants";
 
 function MealCard({ recipe }) {
   const navigate = useNavigate();
-  const [currentRecipe, setCurrentRecipe] = useState(recipe);
-  const [favMeal, selectFavMeal] = useState(() => {
-    const preStored = localStorage.getItem(STORAGE_KEYS.fav_meals);
-    return preStored ? JSON.parse(preStored) : [];
+
+  const [favMeal, setFavMeal] = useState(() => {
+    const favouriteMeals = localStorage.getItem(STORAGE_KEYS.fav_meals);
+    return favouriteMeals ? JSON.parse(favouriteMeals) : [];
   });
   const [isFav, setIsFav] = useState(() => {
-    if (!favMeal) return false;
-    const requiredID = currentRecipe.idMeal;
-    const exists = favMeal.some((meal) => meal.idMeal === requiredID);
-    if (exists) {
-      return true;
-    } else {
-      return false;
-    }
+    const requiredID = recipe.idMeal;
+    return favMeal.some((meal) => meal.idMeal === requiredID);
   });
 
   const handleToogleFav = (e) => {
     e.stopPropagation();
-    let favourites = favMeal;
-    const requiredID = currentRecipe.idMeal;
-    const exists = favourites.some((meal) => meal.idMeal === requiredID);
-    if (exists) {
-      setIsFav(false);
-      favourites.filter((item) => item.idMeal !== requiredID);
-    } else {
-      setIsFav(true);
-      favourites.push(currentRecipe);
-    }
-    selectFavMeal(favourites);
-    console.log(favourites);
-    localStorage.setItem(STORAGE_KEYS.fav_meals, JSON.stringify(favourites));
+    console.log("handle toogle clicked ");
+    setFavMeal((prevMeals) => {
+      let updatedMeals;
+      const requiredID = recipe.idMeal;
+      const exists = favMeal.some((meal) => meal.idMeal === requiredID);
+      if (exists) {
+        // need to remove the item
+        updatedMeals = prevMeals.filter((item) => item.idMeal !== requiredID);
+        setIsFav(false);
+      } else {
+        updatedMeals = [...prevMeals, recipe];
+        setIsFav(true);
+      }
+      console.log({ updatedMeals });
+      localStorage.setItem(
+        STORAGE_KEYS.fav_meals,
+        JSON.stringify(updatedMeals),
+      );
+      return updatedMeals;
+    });
   };
-
-  useEffect(() => {
-    setCurrentRecipe(recipe);
-  }, [recipe]);
 
   return (
     <div

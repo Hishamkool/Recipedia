@@ -1,16 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SvgFavOutline from "../assets/svg/favourite-outline.svg?react";
+import SvgFavFilled from "../assets/svg/favourite-filled.svg?react";
 import { fetchMealID } from "../services/mealServices";
 import { structureIngridients } from "../util/createIngredientsUtil";
+import { STORAGE_KEYS } from "../constants/localStorage.constants";
+import DefaultHeader from "../components/DefaultHeader";
 
 function DetailsPage() {
   const { mealID } = useParams();
-  const navigate = useNavigate();
-
   const [mealDetails, setMealDetails] = useState([]);
   const [mealIngredients, setMealIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [favMeal, setFavMeal] = useState(() => {
+    const favouriteMeals = localStorage.getItem(STORAGE_KEYS.fav_meals);
+    return favouriteMeals ? JSON.parse(favouriteMeals) : [];
+  });
+  const [isFav, setIsFav] = useState(() => {
+    const requiredID = mealID;
+    return favMeal.some((meal) => meal.idMeal === requiredID);
+  });
+
+  const handleToogleFav = (e) => {
+    e.stopPropagation();
+    console.log("handle toogle clicked ");
+    setFavMeal((prevMeals) => {
+      let updatedMeals;
+      const requiredID = mealID;
+      const exists = favMeal.some((meal) => meal.idMeal === requiredID);
+      if (exists) {
+        // need to remove the item
+        updatedMeals = prevMeals.filter((item) => item.idMeal !== requiredID);
+        setIsFav(false);
+      } else {
+        const currentRecipe = mealDetails.find(
+          (meal) => meal.idMeal === requiredID,
+        );
+        updatedMeals = [...prevMeals, currentRecipe];
+        setIsFav(true);
+      }
+      console.log({ updatedMeals });
+      localStorage.setItem(
+        STORAGE_KEYS.fav_meals,
+        JSON.stringify(updatedMeals),
+      );
+      return updatedMeals;
+    });
+  };
 
   /* useEffects */
   useEffect(() => {
@@ -34,11 +70,7 @@ function DetailsPage() {
 
   return (
     <>
-      <header className="bg-white h-12 w-full px-2.5 py-1.5 shadow-2xl sticky top-0 z-50">
-        <div>
-          <button onClick={() => navigate(-1)}> ← back</button>
-        </div>
-      </header>
+      <DefaultHeader />
       {/* menu details section */}
       <section className=" px-7 sm:px-14 md:px-32 lg:px-44 py-5 bg-amber-50 min-h-dvh">
         {loading || !mealDetails ? (
@@ -62,8 +94,17 @@ function DetailsPage() {
                       alt=""
                       className="flex flex-row object-cover w-full hover:scale-110  duration-300"
                     />
-                    <button className="bg-white rounded-full p-1.5 absolute top-2 right-2 ">
-                      <SvgFavOutline className="size-8 " />
+                    <button
+                      onClick={(e) => {
+                        handleToogleFav(e);
+                      }}
+                      className="bg-white rounded-full p-1.5 absolute top-2 right-2 active:animate-ping"
+                    >
+                      {isFav ? (
+                        <SvgFavFilled className="size-8" />
+                      ) : (
+                        <SvgFavOutline className="size-8" />
+                      )}
                     </button>
                   </div>
 

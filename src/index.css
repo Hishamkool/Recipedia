@@ -4,4 +4,8 @@
   .details-card {
     @apply flex gap-3 flex-col bg-white rounded-2xl p-4 shadow-xl hover:shadow-2xl;
   }
+
+  .meal-card-grid {
+    @apply grid grid-cols-1 justify-center items-center my-4 gap-3.5 max-w-[80vw] sm:grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5;
+  }
 }
