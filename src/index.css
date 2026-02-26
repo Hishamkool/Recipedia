@@ -1,4 +1,7 @@
 @import "tailwindcss";
 
-@layer base {
+@layer components {
+  .details-card {
+    @apply flex gap-3 flex-col bg-white rounded-2xl p-4 shadow-xl hover:shadow-2xl;
+  }
 }

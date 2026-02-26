@@ -3,7 +3,11 @@ import HeaderHome from "../components/HeaderHome";
 import BodyComponent from "../components/BodyComponent";
 /* import axios from "axios"; */
 import { getAllMeals, searchMeals } from "../services/mealServices";
+import { STORAGE_KEYS } from "../constants/localStorage.constants";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants/Routes";
 function HomePage() {
+  const navigate = useNavigate();
   const [mealsData, setMealsData] = useState([]);
   const [mealsLoading, setMealsLoading] = useState(true);
 
@@ -24,6 +28,10 @@ function HomePage() {
   }, []);
 
   //functions
+  const navigateFavPage = () => {
+    console.log("navigating to fav page ...");
+    navigate(ROUTES.favourites);
+  };
 
   const handleSearchItem = async (searchValue) => {
     console.log("search button clicked", searchValue);
@@ -40,7 +48,10 @@ function HomePage() {
   };
   return (
     <>
-      <HeaderHome handleSearchItem={handleSearchItem} />
+      <HeaderHome
+        handleSearchItem={handleSearchItem}
+        navigateFavPage={navigateFavPage}
+      />
       <BodyComponent mealsData={mealsData} mealsLoading={mealsLoading} />
     </>
   );

@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route exact path={ROUTES.home} element={<HomePage />} />
         <Route path={ROUTES.favourites} element={<FavouritesPage />} />
-        <Route path="/meal-details/:mealName" element={<DetailsPage />} />
+        <Route path="/meal-details/:mealID" element={<DetailsPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,52 +1,36 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { STORAGE_KEYS } from "../constants/localStorage.constants";
 import SvgFavOutline from "../assets/svg/favourite-outline.svg?react";
+import { fetchMealID } from "../services/mealServices";
+import { structureIngridients } from "../util/createIngredientsUtil";
 
 function DetailsPage() {
-  const { mealName } = useParams();
+  const { mealID } = useParams();
   const navigate = useNavigate();
 
-  const [mealDetails, setMealDetails] = useState(() => {
-    /*  const dataInStorage = localStorage.getItem(STORAGE_KEYS.meal_details); */
-    return /* dataInStorage ? dataInStorage : */ [];
-  });
-  const [mealInstructions, setMealInstructions] = useState([]);
+  const [mealDetails, setMealDetails] = useState([]);
+  const [mealIngredients, setMealIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
-  /* functions */
-  function createIngridients(strInstructions) {
-    strInstructions = strInstructions ?? mealDetails.strInstructions;
-    if (strInstructions) {
-      const splitInstructions = strInstructions.split(/\r?\n\d+\r?\n/);
-      setMealInstructions(splitInstructions);
-      console.log(splitInstructions);
-    }
-  }
 
-  const fetchSelectedMeal = async () => {
-    await axios
-      // .get(`${API_LINK}+${mealName}`)
-      .get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`)
-      .then((response) => {
-        const responseData = response.data.meals;
-        setMealDetails(responseData);
-        localStorage.setItem(
-          STORAGE_KEYS.meal_details,
-          JSON.stringify(mealDetails),
-        );
-        console.log(responseData);
-        setLoading(false);
-        createIngridients(responseData.strInstructions);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
   /* useEffects */
   useEffect(() => {
+    const fetchSelectedMeal = async () => {
+      try {
+        const response = await fetchMealID(mealID);
+        const structured = structureIngridients(response);
+        setMealDetails(response);
+        console.log("meal details", response);
+        setMealIngredients(structured);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed fetching item details", error);
+        setLoading(false);
+      }
+    };
+
     fetchSelectedMeal();
-  }, []);
+  }, [mealID]);
 
   return (
     <>
@@ -56,27 +40,27 @@ function DetailsPage() {
         </div>
       </header>
       {/* menu details section */}
-      <section className="px-7 py-5">
+      <section className=" px-7 sm:px-14 md:px-32 lg:px-44 py-5 bg-amber-50 min-h-dvh">
         {loading || !mealDetails ? (
           loading ? (
             <div>Loading...</div>
           ) : (
-            !mealDetails && <div>No details found</div>
+            !mealDetails && <div>Details for {mealID} is not found</div>
           )
         ) : (
           mealDetails.map((meal) => {
             return (
-              <>
+              <div key={meal.idMeal}>
                 {/* card */}
                 <div
-                  key={meal.idMeal}
-                  className=" flex flex-col rounded-2xl overflow-hidden shadow-xl relative max-w-87.5 place-self-center hover:shadow-2xl"
+                  /*  key={meal.idMeal} */
+                  className=" flex flex-col rounded-2xl overflow-hidden shadow-xl relative max-h-[60vh]  hover:shadow-2xl bg-white"
                 >
                   <div className="overflow-hidden">
                     <img
                       src={meal.strMealThumb}
                       alt=""
-                      className="flex flex-row object-contain w-full   hover:scale-110  duration-300"
+                      className="flex flex-row object-cover w-full hover:scale-110  duration-300"
                     />
                     <button className="bg-white rounded-full p-1.5 absolute top-2 right-2 ">
                       <SvgFavOutline className="size-8 " />
@@ -93,22 +77,41 @@ function DetailsPage() {
                   </div>
                 </div>
 
-                {/* Ingridients */}
-                <div>
-                  <h2>Ingridients</h2>
-                  <div>{meal.strIngredient1}</div>
-                </div>
-                {/* Instructions */}
+                {/* ingredients and instructions */}
+                <div className="flex flex-wrap  w-full gap-x-11 gap-y-4 px-2.5 py-8">
+                  {/* Ingridients */}
+                  <div className="flex-1 h-fit details-card">
+                    <h1 className="text-3xl ">Ingredients</h1>
+                    <div className="flex gap-0.5 flex-col">
+                      {mealIngredients.map((ingredient, index) => (
+                        <p key={index}>
+                          {/*  {index + 1}
+                          {`)`} */}
 
-                <div className="w-full p-1.5">
-                  <h2>Instructions</h2>
-                  <span className="">
-                    {mealInstructions.forEach((inst) => {
-                      return <div>{inst}</div>;
-                    })}
-                  </span>
+                          {ingredient}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Instructions */}
+                  <div className="flex-3 details-card">
+                    <h1 className="text-3xl">Instructions</h1>
+                    <p className="whitespace-pre-line">
+                      {/* {meal.strInstructions
+                        .split(/\r+\n+/)
+                        .map((text, index) => {
+                          return (
+                            <p key={index}>
+                              {index + 1}. {text}
+                            </p>
+                          );
+                        })} */}
+                      {meal.strInstructions}
+                    </p>
+                  </div>
                 </div>
-              </>
+              </div>
             );
           })
         )}
