@@ -62,7 +62,7 @@ function DetailsPage() {
                     <img
                       src={meal.strMealThumb}
                       alt=""
-                      className="flex flex-row object-cover w-full hover:scale-110  duration-300"
+                      className="flex flex-row object-cover w-full hover:scale-110  duration-300 relative"
                     />
                     <button
                       onClick={(e) => {
@@ -76,6 +76,11 @@ function DetailsPage() {
                         <SvgFavOutline className="size-8" />
                       )}
                     </button>
+                    <img
+                      src={meal.strMealThumb}
+                      alt=""
+                      className="hidden 2xl:block hover:scale-110 size-70 shadow-2xl rounded-4xl border-4 border-white  bottom-25 left-12.5 absolute duration-300 "
+                    />
                   </div>
 
                   <div className=" bg-white m-4 ">
