@@ -16,7 +16,7 @@ export default function FavouritesButton({ isNotFavPage = true }) {
     >
       <HeartSVG className="size-5 group-hover:fill-white fill-red-500 rounded relative" />
       {count !== 0 && (
-        <div className="absolute top-2  sm:top-2.5 right-0 flex items-center justify-center bg-amber-400 size-6 rounded-full text-black font-extrabold">
+        <div className="absolute top-2  animate-bounce sm:top-2.5 right-0 flex items-center justify-center bg-amber-400 size-6 rounded-full text-black font-extrabold">
           <span className="text-[12px]">{count}</span>
         </div>
       )}
