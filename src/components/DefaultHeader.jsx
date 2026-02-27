@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import FavouritesButton from "./FavouritesButton";
 
-function DefaultHeader() {
+function DefaultHeader({ isNotFavPage = true }) {
   const navigate = useNavigate();
   return (
     <header className="bg-white h-16 sm:h-18  w-full px-2.5 py-1.5 shadow-2xl sticky top-0 z-50">
@@ -14,7 +14,7 @@ function DefaultHeader() {
           {" "}
           ← back
         </button>
-        <FavouritesButton />
+        <FavouritesButton isNotFavPage={isNotFavPage} />
       </div>
     </header>
   );

@@ -11,7 +11,7 @@ function FavouritesPage() {
   const count = getFavCount();
   return (
     <>
-      <DefaultHeader />
+      <DefaultHeader isNotFavPage={false} />
 
       {!count ? (
         <div className="fixed inset-0  text-center flex flex-col gap-4 items-center justify-center   border ">

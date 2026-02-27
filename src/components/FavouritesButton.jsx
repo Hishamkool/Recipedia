@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/Routes";
 import HeartSVG from "../assets/svg/heart.svg?react";
 import { FavoriteContext } from "../context/FavouriteContext";
-export default function FavouritesButton() {
+export default function FavouritesButton({ isNotFavPage = true }) {
   const navigate = useNavigate();
   const { getFavCount } = useContext(FavoriteContext);
   const count = getFavCount();
   return (
     <button
-      onClick={() => navigate(ROUTES.favourites)}
+      onClick={() => isNotFavPage && navigate(ROUTES.favourites)}
       className="group: ring-1  ring-amber-600 flex items-center gap-1
               hover:bg-red-500 text-red-400 hover:text-amber-50 group
               py-1.5 px-2.5 rounded-xl shadow-2xs shadow-amber-600"
