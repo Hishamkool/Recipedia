@@ -18,10 +18,10 @@ function HeaderHome({ handleSearchItem }) {
             placeholder="Search Recipies..."
             name="search-recipe"
             id="search-recipe"
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(e) => setSearchValue(e.target.value.trim())}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                handleSearchItem(serachValue, e);
+                handleSearchItem(serachValue);
               }
               return;
             }}
