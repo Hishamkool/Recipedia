@@ -11,7 +11,7 @@ function HeaderHome({ handleSearchItem }) {
           <h1 className="text-5xl ">Recipedia</h1>
           <FavouritesButton />
         </div>
-        <div className="flex justify-center items-center  mt-14 w-full max-w-4xl mx-auto px-20  relative">
+        <div className="flex justify-center items-center  mt-14 w-full max-w-4xl mx-auto px-5 min-[500px]:px-10 sm:px-20  relative">
           <input
             type="text"
             className="text-2xl border-2 rounded-md px-2.5 py-1 w-full "
@@ -22,7 +22,7 @@ function HeaderHome({ handleSearchItem }) {
             onKeyDown={() => handleSearchItem(serachValue)}
           ></input>
           <button
-            className="absolute  right-20 px-2.5 py-1"
+            className="absolute min-[500px]:right-10 right-5 sm:right-20 px-2.5 py-1"
             onClick={() => handleSearchItem(serachValue)}
           >
             <SerachIcon className="size-9" />
