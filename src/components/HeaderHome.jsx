@@ -11,10 +11,10 @@ function HeaderHome({ handleSearchItem }) {
           <h1 className="text-5xl ">Recipedia</h1>
           <FavouritesButton />
         </div>
-        <div className="flex justify-center items-center  mt-14  ">
+        <div className="flex justify-center items-center  mt-14 w-full max-w-4xl mx-auto px-20  relative">
           <input
             type="text"
-            className="text-2xl border-2 rounded-md px-2.5 py-1 w-screen mx-20 relative"
+            className="text-2xl border-2 rounded-md px-2.5 py-1 w-full "
             placeholder="Search Recipies..."
             name="search-recipe"
             id="search-recipe"
@@ -22,7 +22,7 @@ function HeaderHome({ handleSearchItem }) {
             onKeyDown={() => handleSearchItem(serachValue)}
           ></input>
           <button
-            className="absolute right-20 px-2.5 py-1"
+            className="absolute  right-20 px-2.5 py-1"
             onClick={() => handleSearchItem(serachValue)}
           >
             <SerachIcon className="size-9" />
