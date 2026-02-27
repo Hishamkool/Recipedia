@@ -11,7 +11,7 @@ function MealCard({ recipe }) {
   const isFav = checkIsFavourite(recipe.idMeal);
   return (
     <div
-      className="bg-white flex flex-col rounded-2xl overflow-hidden shadow-xl relative max-w-87.5 min-w-50 min-h-50 place-self-center hover:shadow-2xl"
+      className="bg-white flex flex-col cursor-pointer rounded-2xl overflow-hidden shadow-xl relative max-w-87.5 min-w-50 min-h-50 place-self-center hover:shadow-2xl"
       onClick={() => {
         navigate(`/meal-details/${recipe.idMeal}`);
       }}

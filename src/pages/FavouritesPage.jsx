@@ -27,7 +27,7 @@ function FavouritesPage() {
         </div>
       ) : (
         <div>
-          <div className="p-2.5">
+          <div className="p-2.5 sm:hidden">
             <div className="text-3xl ">Favourites</div>
             <div className="text-sm ">Total Items : {count}</div>
           </div>
