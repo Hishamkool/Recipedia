@@ -26,6 +26,7 @@ function HomePage() {
 
   const handleSearchItem = async (searchValue) => {
     console.log("search button clicked", searchValue);
+
     try {
       setMealsLoading(true);
       const response = await searchMeals(searchValue);
