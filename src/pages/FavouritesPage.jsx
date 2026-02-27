@@ -32,7 +32,7 @@ function FavouritesPage() {
             <div className="text-sm ">Total Items : {count}</div>
           </div>
 
-          <div className="meal-card-grid mx-auto px-auto">
+          <div className="sm:pt-10 meal-card-grid mx-auto px-auto">
             {favMeals.map((meal) => (
               <MealCard key={meal.idMeal} recipe={meal} />
             ))}
