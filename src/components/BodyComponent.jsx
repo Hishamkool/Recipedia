@@ -14,7 +14,7 @@ function BodyComponent({ mealsData, mealsLoading }) {
             ) : (
               !mealsData && (
                 <>
-                  <div className="col-span-full text-2xl inset-0 fixed flex justify-center items-center flex-col row-span-full">
+                  <div className="col-span-full text-2xl top-62.5 left-[50%] -translate-x-1/2 fixed flex justify-center items-center flex-col row-span-full">
                     <div>
                       <img
                         src="NoResultsFound.jpg"
@@ -22,7 +22,9 @@ function BodyComponent({ mealsData, mealsLoading }) {
                         className=" w-50 md:w-62.5 "
                       />
                     </div>
-                    <span>Sorry, no results found!</span>
+                    <span className="text-center">
+                      Sorry, no results found!
+                    </span>
                   </div>
                 </>
               )

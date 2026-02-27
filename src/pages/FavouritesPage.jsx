@@ -14,8 +14,8 @@ function FavouritesPage() {
       <DefaultHeader isNotFavPage={false} />
 
       {!count ? (
-        <div className="fixed inset-0  text-center flex flex-col gap-4 items-center justify-center border ">
-          <span className="text-2xl">
+        <div className="fixed inset-0  text-center flex flex-col gap-4 items-center justify-center border  ">
+          <span className="text-2xl px-[min(20px , 20vw)] ">
             No Favourite Meals, click 💓 to add to favourites!
           </span>
           <button
