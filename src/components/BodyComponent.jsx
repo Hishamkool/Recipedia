@@ -1,5 +1,6 @@
 import React from "react";
 import MealCard from "./MealCard";
+import CustomLoadingIndicator from "./loadingIndicator";
 
 function BodyComponent({ mealsData, mealsLoading }) {
   return (
@@ -9,9 +10,7 @@ function BodyComponent({ mealsData, mealsLoading }) {
         <div className="meal-card-grid mx-auto px-auto">
           {mealsLoading || !mealsData ? (
             mealsLoading ? (
-              <div className="col-span-full text-2xl flex justify-center items-center row-span-full">
-                fetching menu...
-              </div>
+              <CustomLoadingIndicator loadingText="Fetching Recipies" />
             ) : (
               !mealsData && (
                 <>

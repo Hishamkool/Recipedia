@@ -7,6 +7,7 @@ import { structureIngridients } from "../util/createIngredientsUtil";
 import { STORAGE_KEYS } from "../constants/localStorage.constants";
 import DefaultHeader from "../components/DefaultHeader";
 import { FavoriteContext } from "../context/FavouriteContext";
+import CustomLoadingIndicator from "../components/loadingIndicator";
 
 function DetailsPage() {
   const { mealID } = useParams();
@@ -14,7 +15,7 @@ function DetailsPage() {
   const [mealIngredients, setMealIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { handleToggleFavourite, favMeals, getFavCount, checkIsFavourite } =
+  const { handleToggleFavourite, checkIsFavourite } =
     useContext(FavoriteContext);
   const isFav = checkIsFavourite(mealID);
   /* useEffects */
@@ -44,7 +45,7 @@ function DetailsPage() {
       <section className=" px-7 sm:px-14 md:px-32 lg:px-44 py-5 bg-amber-50 min-h-dvh">
         {loading || !mealDetails ? (
           loading ? (
-            <div>Loading...</div>
+            <CustomLoadingIndicator loadingText="Fetching Item Details" />
           ) : (
             !mealDetails && <div>Details for {mealID} is not found</div>
           )
