@@ -1,18 +1,137 @@
-# React + Vite
+# 🍽️ Recipedia - Recipe Finder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://recipedia-five.vercel.app/)
+[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-Build-646CFF)](https://vitejs.dev/)
 
-Currently, two official plugins are available:
+**🔗 Live Demo:** [https://recipedia-five.vercel.app/](https://recipedia-five.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📌 Overview
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Recipedia is a modern recipe discovery application that allows users to search for meals, view detailed cooking instructions, and manage their favorite recipes. The app integrates with **TheMealDB API** and provides a seamless user experience with responsive design and persistent favorites storage.
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 📱 Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Desktop Views
+
+| Home Page                          | Details Page                             | Favorites Page                               |
+| ---------------------------------- | ---------------------------------------- | -------------------------------------------- |
+| ![Home](screenshots/home-page.png) | ![Details](screenshots/details-page.png) | ![Favorites](screenshots/favorites-page.png) |
+
+### Mobile Views
+
+| Mobile Home                                              | Mobile Details                                              |
+| -------------------------------------------------------- | ----------------------------------------------------------- |
+| <img src="screenshots/mobile-home-page.png" width="200"> | <img src="screenshots/mobile-details-page.png" width="200"> |
+
+## ✨ Features
+
+### 🔍 Recipe Search
+
+- Search for recipes using keywords
+- Real-time API integration with TheMealDB
+- Loading indicators during API calls
+- "No results found" state for empty searches
+- Responsive grid layout for results
+
+### 📖 Recipe Details Page
+
+- High-quality recipe images
+- Recipe name and category
+- Complete ingredients list with measurements
+- Step-by-step cooking instructions
+
+### ❤️ Favorites Management
+
+- Add/remove recipes to/from favorites
+- Visual feedback with filled/outlined heart icons
+- Favorites stored in **localStorage** for persistence
+- Dedicated Favorites page to view all saved recipes
+- Remove recipes directly from favorites page
+
+### 📱 Fully Responsive Design
+
+- **Mobile:** Single column layout
+- **Tablet:** 2-column grid
+- **Desktop:** 3-4 column grid based on screen size
+
+---
+
+## 🛠️ Tech Stack
+
+React 18, React Router, Context API, Tailwind CSS, Axios, TheMealDB API, Vite, LocalStorage
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── assets/
+│ ├── jpg/
+│ │ └── NoResultsFound.jpg
+│ └── svg/
+│ ├── favourite-filled.svg
+│ ├── favourite-outline.svg
+│ ├── heart.svg
+│ └── search.svg
+│
+├── components/
+│ ├── BodyComponent.jsx
+│ ├── DefaultHeader.jsx
+│ ├── FavouritesButton.jsx
+│ ├── HeaderHome.jsx
+│ ├── loadingIndicator.jsx
+│ └── MealCard.jsx
+│
+├── constants/
+│ ├── Flags.constats.js
+│ ├── localStorage.constants.js
+│ └── Routes.jsx
+│
+├── context/
+│ ├── FavouriteContext.jsx
+│ └── FavouriteProvider.jsx
+│
+├── pages/
+│ ├── HomePage.jsx
+│ ├── DetailsPage.jsx
+│ └── FavouritesPage.jsx
+│
+├── services/
+│ ├── api.js
+│ └── mealServices.js
+│
+├── util/
+│ └── createIngredientsUtil.js
+│
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+## 📄 License
+
+This project was created as part of a coding assignment for educational purposes.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Hishamkool/Recipedia.git
+   cd Recipedia
+   ```
+
+Built with ❤️ by Hisham
