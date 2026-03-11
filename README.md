@@ -15,6 +15,17 @@ Recipedia is a modern recipe discovery application that allows users to search f
 
 ---
 
+## 🛠️ Tech Stack
+
+| Category        | Technologies                                                  |
+| --------------- | ------------------------------------------------------------- |
+| **Frontend**    | ⚛️ React · 🧭 React Router · 🔄 Context API · 🎨 Tailwind CSS |
+| **API & Data**  | 🔌 Axios · 🍽️ TheMealDB API                                   |
+| **Build Tools** | ⚡ Vite                                                       |
+| **Storage**     | 💾 LocalStorage                                               |
+
+---
+
 ## 📱 Screenshots
 
 ### Desktop Views
@@ -28,6 +39,8 @@ Recipedia is a modern recipe discovery application that allows users to search f
 | Mobile Home                                              | Mobile Details                                              |
 | -------------------------------------------------------- | ----------------------------------------------------------- |
 | <img src="screenshots/mobile-home-page.png" width="200"> | <img src="screenshots/mobile-details-page.png" width="200"> |
+
+---
 
 ## ✨ Features
 
@@ -59,12 +72,6 @@ Recipedia is a modern recipe discovery application that allows users to search f
 - **Mobile:** Single column layout
 - **Tablet:** 2-column grid
 - **Desktop:** 3-4 column grid based on screen size
-
----
-
-## 🛠️ Tech Stack
-
-React 18, React Router, Context API, Tailwind CSS, Axios, TheMealDB API, Vite, LocalStorage
 
 ---
 
